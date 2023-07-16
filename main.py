@@ -35,7 +35,7 @@ def callback():
     app.logger.info("Request body: " + body)
 
     try:
-        handler.handle(body + "テスト", signature)
+        handler.handle(body, signature)
     except InvalidSignatureError as e:
         abort(400)
 
@@ -44,7 +44,8 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="テストメッセージ"))
+    # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
 
 
 if __name__ == "__main__":
